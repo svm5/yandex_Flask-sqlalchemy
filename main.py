@@ -18,7 +18,24 @@ login_manager.init_app(app)
 @app.route('/')
 @app.route('/index')
 def index():
-    return "Привет, Яндекс!"
+    return """
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>Главная страница</title>
+        </head>
+        <body>
+            <h2>Работы</h2>
+           <ol>
+                <li>Программист</li>
+                <li>Инженер</li>
+                <li>Учитель</li>
+                <li>...</li>
+           </ol>
+        </body>
+        </html>
+    """
 
 
 @login_manager.user_loader
