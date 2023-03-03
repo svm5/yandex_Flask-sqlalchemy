@@ -11,18 +11,21 @@ def main():
     session = db_session.create_session()
 
     user = User()
+    user.name = "Sasha"
     user.email = "a@a"
     user.password = "1"
     user.remember_me  = True
     session.add(user)
 
     user = User()
+    user.name = "Pasha"
     user.email = "b@b"
     user.password = "2"
     user.remember_me  = True
     session.add(user)
 
     user = User()
+    user.name = "Dasha"
     user.email = "c@c"
     user.password = "3"
     user.remember_me  = True

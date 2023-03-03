@@ -32,16 +32,23 @@ def login():
     form = LoginForm()
     db_session.global_init("db/mars_users.db")
     session = db_session.create_session()
-    # print(flask_login.current_user)
-    if form.validate_on_submit():
-        
-        user = session.query(User).filter(User.email == form.email.data).first()
-        # print(session.query(User).all())
-        if user.check_password(form.password.data) is True:
-            login_user(user, remember=form.remember_me.data)
-            return redirect("/")
-        return render_template("login.html", message="Incorrect password", form=form)
-    return render_template("login.html", title="Авторизация", form=form)
+    name = ""
+    if flask_login.current_user.name:
+        name = flask_login.current_user.name
+    # print(form.validate_on_submit(), name)
+    # if not form.validate_on_submit():
+    user = session.query(User).filter(User.email == form.email.data).first()
+    # print(session.query(User).all())
+    if user is not None and user.check_password(form.password.data) is True:
+        # print("Here")
+        login_user(user, remember=form.remember_me.data)
+        return redirect("/")
+    elif user is not None:
+        # print("Error!")
+        return render_template("login.html", message="Incorrect password", form=form, name=name)
+    else:
+        # print("!")
+        return render_template("login.html", title="Авторизация", form=form, name=name)
 
 
 if __name__ == '__main__':
